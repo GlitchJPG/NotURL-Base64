@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "NotURL",
+  "description": "Share webpages without using standard URL format!",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "New NotURL Link"
+  },
+  "permissions": [
+    "tabs",
+    "notifications"
+  ],
+  "background": {
+    "scripts": ["jquery.min.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["jquery.min.js", "NotURLify.js"]
+    }
+  ]
+}
