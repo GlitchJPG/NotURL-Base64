@@ -19,12 +19,16 @@ while (1) {
   result = result[0];
   if (result.indexOf(" ") == -1) {
     var qmStrip = result.substring(1, result.length - 1);
-    var data = atob(qmStrip);
-    var finalLink = "<a href=\"" + data + "\" class=\"" + qmStrip + "\">NotURL Link</a> \
-    <sup><a style=\"color: red;\" href=\"javascript:void(0)\" class=\"resolve\" resData=\"" + qmStrip + "\">resolve</a></sup>";
-    newHtml = newHtml.replace(result, finalLink);
-    HtmlDefault = HtmlDefault.replace(result, "");
-    thingsToLinkify.push([result, finalLink]);
+    try {
+      var data = atob(qmStrip);
+      var finalLink = "<a href=\"" + data + "\" class=\"" + qmStrip + "\">NotURL Link</a> \
+      <sup><a style=\"color: red;\" href=\"javascript:void(0)\" class=\"resolve\" resData=\"" + qmStrip + "\">resolve</a></sup>";
+      newHtml = newHtml.replace(result, finalLink);
+      HtmlDefault = HtmlDefault.replace(result, "");
+      thingsToLinkify.push([result, finalLink]);
+    } catch() {
+      console.log("Decoded string was not valid Base64");
+    }
   } else {
     HtmlDefault = HtmlDefault.replace(result, "");
   }
